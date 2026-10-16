@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Applis SUAPS Dauphine</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="logo-dauphine-sports.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700;800&family=Source+Sans+3:wght@400;500;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+/* Mise en page : bandeau bleu Dauphine Sports, puis grille de cartes d'applis. */
+:root {
+  --bleu: #2f4487;          /* bleu du logo */
+  --bleu-fonce: #233367;
+  --bleu-clair: #e6eaf5;
+  --encre: #161b2e;
+  --encre-2: #586079;
+  --fond: #f3f4f8;
+  --carte: #ffffff;
+  --trait: #dcdfea;
+  --vert: #1c7f4d;
+  --vert-clair: #ddf1e5;
+  --sur-bleu: #ffffff;
+  --bandeau: #2f4487;
+  --display: "Saira Condensed", "Arial Narrow", sans-serif;
+  --texte: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bleu: #8fa3e6; --bleu-fonce: #1d2852; --bleu-clair: #222b4a;
+    --encre: #eef0f7; --encre-2: #a3aac0; --fond: #10131d; --carte: #181c2a; --trait: #2b3145;
+    --vert: #5fcf92; --vert-clair: #173527; --sur-bleu: #ffffff; --bandeau: #24346b; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bleu: #8fa3e6; --bleu-fonce: #1d2852; --bleu-clair: #222b4a;
+  --encre: #eef0f7; --encre-2: #a3aac0; --fond: #10131d; --carte: #181c2a; --trait: #2b3145;
+  --vert: #5fcf92; --vert-clair: #173527; --sur-bleu: #ffffff; --bandeau: #24346b; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body { background: var(--fond); color: var(--encre); font: 17px/1.5 var(--texte); -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+.enveloppe {
+  max-width: 1100px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* ---------- Bandeau ---------- */
+.bandeau { background: var(--bandeau); color: var(--sur-bleu); }
+.bandeau .enveloppe { padding-block: 36px 40px; display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+.bandeau img { width: 96px; height: 96px; border-radius: 6px; flex-shrink: 0; box-shadow: 0 0 0 1px rgba(255,255,255,.25); }
+.bandeau .sur-titre { font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-size: .85rem; font-weight: 600; opacity: .8; margin: 0; }
+.bandeau h1 { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 6vw, 3rem); line-height: 1; margin: 4px 0 6px; text-wrap: balance; }
+.bandeau p { margin: 0; opacity: .88; max-width: 60ch; }
+.bandeau .compteur { margin-left: auto; text-align: right; }
+.bandeau .compteur b { display: block; font-family: var(--display); font-size: 3rem; line-height: 1; font-weight: 800; }
+.bandeau .compteur span { font-size: .8rem; text-transform: uppercase; letter-spacing: .1em; opacity: .8; }
+@media (max-width: 600px) { .bandeau .compteur { margin-left: 0; text-align: left; } .bandeau img { width: 72px; height: 72px; } }
+
+/* ---------- Contenu ---------- */
+main .enveloppe { padding-block: 32px 64px; display: grid; gap: 22px; }
+.entete-section { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+h2 { font-family: var(--display); font-weight: 700; font-size: 1.6rem; margin: 0; letter-spacing: .01em; }
+.entete-section p { margin: 0; color: var(--encre-2); font-size: .95rem; }
+
+.grille { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); }
+
+.appli {
+  background: var(--carte); border: 1px solid var(--trait); border-radius: 10px;
+  display: flex; flex-direction: column; min-width: 0; overflow: hidden;
+}
+.appli .haut { padding: 20px 20px 0; display: flex; gap: 14px; align-items: flex-start; }
+.appli .icone {
+  width: 48px; height: 48px; border-radius: 10px; background: var(--bleu-clair); color: var(--bleu);
+  display: grid; place-items: center; flex-shrink: 0;
+}
+.appli .icone svg { width: 26px; height: 26px; }
+.appli h3 { font-family: var(--display); font-weight: 700; font-size: 1.45rem; line-height: 1.1; margin: 2px 0 4px; }
+.etiquettes { display: flex; gap: 6px; flex-wrap: wrap; }
+.etiquette { font-size: .75rem; font-weight: 600; padding: 2px 9px; border-radius: 99px; background: var(--fond); color: var(--encre-2); border: 1px solid var(--trait); }
+.etiquette.en-ligne { background: var(--vert-clair); color: var(--vert); border-color: transparent; }
+.appli .corps { padding: 12px 20px 16px; flex: 1; }
+.appli .corps p { margin: 0 0 10px; color: var(--encre-2); }
+.appli ul { margin: 0; padding-left: 18px; color: var(--encre); font-size: .95rem; }
+.appli li + li { margin-top: 2px; }
+.appli .actions { border-top: 1px solid var(--trait); display: grid; }
+.lien {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 12px 20px; text-decoration: none; font-weight: 600; min-width: 0;
+}
+.lien + .lien { border-top: 1px solid var(--trait); }
+.lien:hover { background: var(--bleu-clair); }
+.lien:focus-visible, button:focus-visible { outline: 2px solid var(--bleu); outline-offset: -2px; }
+.lien .qui { display: block; font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--bleu); }
+.lien .url { display: block; font-weight: 400; font-size: .85rem; color: var(--encre-2); overflow-wrap: anywhere; }
+.lien .fleche { color: var(--bleu); flex-shrink: 0; }
+.qr-bouton {
+  font: inherit; font-size: .85rem; font-weight: 600; color: var(--bleu); background: none; border: 1px solid var(--trait);
+  border-radius: 8px; padding: 6px 10px; cursor: pointer; flex-shrink: 0;
+}
+.qr-zone { display: flex; gap: 16px; align-items: center; padding: 14px 20px 18px; border-top: 1px solid var(--trait); background: var(--fond); }
+.qr-zone .qr { background: #fff; padding: 8px; border-radius: 8px; line-height: 0; }
+.qr-zone p { margin: 0; font-size: .9rem; color: var(--encre-2); }
+
+.astuce { border: 1px dashed var(--trait); border-radius: 10px; padding: 18px 20px; color: var(--encre-2); font-size: .95rem; }
+.astuce b { color: var(--encre); }
+.astuce code { font-size: .85rem; background: var(--carte); border: 1px solid var(--trait); border-radius: 5px; padding: 1px 5px; }
+footer { color: var(--encre-2); font-size: .85rem; text-align: center; padding-block: 0 32px; }
+@media (prefers-reduced-motion: no-preference) { .lien, .qr-bouton { transition: background .15s; } }
+</style>
+</head>
+<body>
+
+<header class="bandeau">
+  <div class="enveloppe">
+    <img src="logo-dauphine-sports.png" alt="Logo Dauphine Sports">
+    <div>
+      <p class="sur-titre">SUAPS · Université Paris Dauphine-PSL</p>
+      <h1>Marine Zubaloff</h1>
+      <p>Les applications créées pour les cours et le suivi des étudiants.</p>
+    </div>
+    <div class="compteur"><b id="nb-applis">0</b><span>applis en ligne</span></div>
+  </div>
+</header>
+
+<main>
+  <div class="enveloppe">
+    <div class="entete-section">
+      <h2>Mes applis</h2>
+      <p>Cliquez pour ouvrir. Le QR code permet aux étudiants d'accéder à leur page depuis leur téléphone.</p>
+    </div>
+    <div class="grille" id="grille"></div>
+    <div class="astuce">
+      <b>Ajouter une nouvelle appli :</b> dans <code>index.html</code>, copiez un bloc de la liste <code>APPLIS</code>
+      (en bas du fichier), changez le nom, la description et les liens, puis déposez le fichier sur GitHub.
+      La carte apparaît automatiquement.
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="enveloppe">SUAPS Dauphine · Marine Zubaloff</div>
+</footer>
+
+<script>
+// =====================================================================
+//  LISTE DES APPLIS — pour en ajouter une, copiez un bloc { ... } et modifiez-le.
+//  icone : "haltere", "coeur", "chrono", "groupe" ou "carnet"
+//  liens : qui = public concerné ; qr: true affiche un QR code pour ce lien
+// =====================================================================
+const APPLIS = [
+  {
+    nom: "Muscu SUAPS",
+    icone: "haltere",
+    etiquettes: ["Musculation", "Firebase"],
+    description: "Tests de force et programmes personnalisés sur les appareils de la salle.",
+    points: [
+      "Test 3RM et estimation du max (formule de Brzycki)",
+      "6 objectifs : force, volume, endurance, puissance, affiner, sculpter",
+      "Carnet de séance et ajustement automatique des charges",
+      "Cartes QR codes et export CSV"
+    ],
+    liens: [
+      { qui: "Enseignant", texte: "Espace enseignant", url: "https://mzbe2.github.io/progmuscu/prof.html" },
+      { qui: "Étudiants", texte: "Page étudiant (code ou QR)", url: "https://mzbe2.github.io/progmuscu/", qr: true }
+    ]
+  },
+  {
+    nom: "Sport Santé PSL",
+    icone: "coeur",
+    etiquettes: ["Bilan santé", "Email universitaire"],
+    description: "Bilans de condition physique des étudiants et suivi des séances.",
+    points: [
+      "Saisie des tests, enregistrée au fil de l'eau",
+      "Alerte si la fréquence cardiaque après le step test dépasse le seuil",
+      "Tableaux de bord par test, filière et genre",
+      "Exports PDF et Excel"
+    ],
+    liens: [
+      { qui: "Étudiants & enseignants", texte: "Ouvrir l'appli", url: "https://mzbe2.github.io/sport-sante-psl/", qr: true }
+    ]
+  }
+];
+
+// ---------------------------------------------------------------------
+const ICONES = {
+  haltere: '<path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11" />',
+  coeur: '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z" /><path d="M7.5 12h2.5l1.2-2.2 1.8 4 1.2-1.8h2.3" />',
+  chrono: '<circle cx="12" cy="13" r="7" /><path d="M12 13V9.5M10 3h4" />',
+  groupe: '<circle cx="9" cy="9" r="3" /><circle cx="17" cy="10" r="2.5" /><path d="M3.5 19a5.5 5.5 0 0 1 11 0M14.5 19a4 4 0 0 1 6-3.4" />',
+  carnet: '<rect x="5" y="3.5" width="14" height="17" rx="2" /><path d="M9 8h6M9 12h6M9 16h4" />'
+};
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const court = u => u.replace(/^https?:\/\//, "").replace(/\/$/, "");
+
+document.getElementById("nb-applis").textContent = APPLIS.length;
+document.getElementById("grille").innerHTML = APPLIS.map((a, i) => `
+  <article class="appli">
+    <div class="haut">
+      <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONES[a.icone] || ICONES.carnet}</svg></div>
+      <div style="min-width:0">
+        <h3>${esc(a.nom)}</h3>
+        <div class="etiquettes"><span class="etiquette en-ligne">En ligne</span>${(a.etiquettes || []).map(t => `<span class="etiquette">${esc(t)}</span>`).join("")}</div>
+      </div>
+    </div>
+    <div class="corps">
+      <p>${esc(a.description)}</p>
+      ${a.points?.length ? `<ul>${a.points.map(p => `<li>${esc(p)}</li>`).join("")}</ul>` : ""}
+    </div>
+    <div class="actions">
+      ${a.liens.map((l, j) => `
+        <div>
+          <div class="lien" style="padding-right:${l.qr ? "12px" : "20px"}">
+            <a href="${esc(l.url)}" target="_blank" rel="noopener" style="text-decoration:none;min-width:0;flex:1;display:flex;justify-content:space-between;gap:10px;align-items:center">
+              <span style="min-width:0"><span class="qui">${esc(l.qui)}</span>${esc(l.texte)}<span class="url">${esc(court(l.url))}</span></span>
+              <span class="fleche" aria-hidden="true">↗</span>
+            </a>
+            ${l.qr ? `<button class="qr-bouton" data-qr="${i}-${j}" aria-expanded="false">QR code</button>` : ""}
+          </div>
+          ${l.qr ? `<div class="qr-zone" id="qr-${i}-${j}" hidden><div class="qr"></div><p>À projeter ou afficher en salle : les étudiants le scannent avec l'appareil photo de leur téléphone.</p></div>` : ""}
+        </div>`).join("")}
+    </div>
+  </article>`).join("");
+
+document.querySelectorAll("[data-qr]").forEach(b => b.addEventListener("click", () => {
+  const [i, j] = b.dataset.qr.split("-").map(Number);
+  const zone = document.getElementById("qr-" + b.dataset.qr);
+  zone.hidden = !zone.hidden;
+  b.setAttribute("aria-expanded", String(!zone.hidden));
+  b.textContent = zone.hidden ? "QR code" : "Masquer";
+  const cible = zone.querySelector(".qr");
+  if (!zone.hidden && !cible.hasChildNodes()) {
+    try { new QRCode(cible, { text: APPLIS[i].liens[j].url, width: 140, height: 140 }); }
+    catch (e) { cible.style.cssText = "line-height:1.3;color:#586079;font-size:.85rem;width:140px"; cible.textContent = "QR code indisponible (vérifiez la connexion)"; }
+  }
+}));
+</script>
+</body>
+</html>
