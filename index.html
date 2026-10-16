@@ -151,7 +151,7 @@ footer { color: var(--encre-2); font-size: .85rem; text-align: center; padding-b
 <script>
 // =====================================================================
 //  LISTE DES APPLIS — pour en ajouter une, copiez un bloc { ... } et modifiez-le.
-//  icone : "haltere", "coeur", "chrono", "groupe" ou "carnet"
+//  icone : "haltere", "coeur", "chrono", "groupe", "carnet" ou "montagne"
 //  liens : qui = public concerné ; qr: true affiche un QR code pour ce lien
 // =====================================================================
 const APPLIS = [
@@ -185,6 +185,22 @@ const APPLIS = [
     liens: [
       { qui: "Étudiants & enseignants", texte: "Ouvrir l'appli", url: "https://mzbe2.github.io/sport-sante-psl/", qr: true }
     ]
+  },
+  {
+    nom: "Escalade SUAPS",
+    icone: "montagne",
+    etiquettes: ["Escalade", "Firebase"],
+    description: "Suivi des voies grimpées au mur de Suchet, en direct pendant la séance.",
+    points: [
+      "Topo des 57 voies (relais, couleur, cotation, photo)",
+      "Saisie au pied du mur : mode, résultat, binôme, ressenti",
+      "Tableau de bord enseignant en temps réel",
+      "Carnet et pyramide de progression, export CSV"
+    ],
+    liens: [
+      { qui: "Enseignant", texte: "Espace enseignant", url: "https://mzbe2.github.io/escalade-suaps/prof.html" },
+      { qui: "Étudiants", texte: "Page étudiant (code ou QR)", url: "https://mzbe2.github.io/escalade-suaps/", qr: true }
+    ]
   }
 ];
 
@@ -194,6 +210,7 @@ const ICONES = {
   coeur: '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z" /><path d="M7.5 12h2.5l1.2-2.2 1.8 4 1.2-1.8h2.3" />',
   chrono: '<circle cx="12" cy="13" r="7" /><path d="M12 13V9.5M10 3h4" />',
   groupe: '<circle cx="9" cy="9" r="3" /><circle cx="17" cy="10" r="2.5" /><path d="M3.5 19a5.5 5.5 0 0 1 11 0M14.5 19a4 4 0 0 1 6-3.4" />',
+  montagne: '<path d="M3 19.5 9.5 7l4 7.5 2-3.5 5.5 8.5Z" /><path d="M7.6 10.7 9.5 12l1.6-1.2" />',
   carnet: '<rect x="5" y="3.5" width="14" height="17" rx="2" /><path d="M9 8h6M9 12h6M9 16h4" />'
 };
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
